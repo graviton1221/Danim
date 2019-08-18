@@ -45,7 +45,7 @@ so you need to install python3.7 and 3b1b/manim
 
 The installation guide for 3b1b/manim is at (https://github.com/3b1b/manim)
 
-Once you have done manim installation, download the danim and release it in the origin manim folder.
+Once you have done manim installation, download the danim and release it in the manim folder.
 
 Go to the manim folder and run the following code
 
