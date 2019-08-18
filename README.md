@@ -14,6 +14,7 @@ Here are some achieved features of this tools: (will add more in the future)
 Animate the bubble chart, the effects is as follows：
 this gif may load for a while...
 <img src="image/DEMO1.gif" width="500px" height="281px">
+
 *DATA source: gapminder & UN
 
 ### 2.Distribution chart animation:
@@ -25,7 +26,9 @@ Stack different distributions together
 the effects is as follows： 
 again... please be patient, this gif may load for a while...
 <img src="image/DEMO2.gif" width="500px" height="281px">
+
 *DATA source: gapminder & UN
+
 ### 3.A lot more to come.... 
 There are many ideas that I'm currently developing, 
 
