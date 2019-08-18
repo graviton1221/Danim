@@ -2,7 +2,9 @@
 
 Animation Tools for Data visualization, based on Manim of 3blue1brown
 
-This is Data Animation Tool that creates gif or mp4 video of animated data, a tool that let your data talk!
+This is Data Animation Tool that creates gif or mp4 video of animated data.
+
+A tool that let your data talk!
 
 Here are some achieved features of this tools: (will add more in the future)
 
@@ -24,8 +26,12 @@ again... please be patient, this gif may load for a while...
 <img src="image/DEMO2.gif" width="500px" height="281px">
 
 ### 3.A lot more to come.... 
-There are many ideas that I'm currently developing, 3b1b/manim is really a very powerful tool.
+There are many ideas that I'm currently developing, 
+
+3b1b/manim is really a very powerful tool.
+
 Feel free to contact me if you have any good ideas, welcome to contribute!
+
 
 # Installation
 
@@ -40,12 +46,14 @@ Once you have done manim installation, download the danim and release it in the 
 Go to the manim folder and run the following code
 
 ```sh
-python -m manim Dxproject/BubbleChart/BubbleChartAnimation.py BubbleChartAnimation -p
+python -m manim Danim/BubbleChart/BubbleChartAnimation.py BubbleChartAnimation -p
 ```
 
 you will have your first Bubble Chart Video created.
 
 
 ### Customize your own bubble chart animation:
+
 You can change the data in DATA/X.csv and DATA/Y.csv and DATA/R.csv 
+
 You can change the axes settings in BubbleChart/bubble_constants.py
