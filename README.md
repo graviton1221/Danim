@@ -47,7 +47,7 @@ The installation guide for 3b1b/manim is at (https://github.com/3b1b/manim)
 
 System requirements are [cairo](https://www.cairographics.org), [ffmpeg](https://www.ffmpeg.org), [sox](http://sox.sourceforge.net), [latex](https://www.latex-project.org) (optional, if you want to use LaTeX).
 
-Once you have done manim installation, download the danim and release it in the manim folder.
+Once you have done manim installation, download the danim file and release the file in the "Danim" folder to the manim.
 
 Go to the manim folder and run the following code
 
