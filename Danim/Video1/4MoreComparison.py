@@ -63,7 +63,8 @@ class MoreComparison(Scene):
 
         axes.y_axis.add_numbers(*np.arange(10,100,10))        
 
-        self.play(ShowCreation(axes,run_time = 1.5))
+        #6:33;10
+        self.play(ShowCreation(axes,run_time = 3.5))
 
 
         y_axis_label_text = TextMobject("人均寿命").scale(0.6)
@@ -71,7 +72,8 @@ class MoreComparison(Scene):
 
         x_axis_label_text = TextMobject("人均GDP").scale(0.6)
         x_axis_label_text.next_to(axes.x_axis.number_to_point(9.5), UP)
-        self.play(Write(y_axis_label_text),Write(x_axis_label_text),run_time = 1)
+        self.play(Write(y_axis_label_text),Write(x_axis_label_text),run_time = 2)
+        self.wait(4)
 
         #create year lable:
         year_lable = Integer(1800,group_with_commas = False,color = TEAL_E).scale(1.5)
@@ -79,8 +81,29 @@ class MoreComparison(Scene):
         self.play(GrowFromCenter(year_lable),run_time =1)
         #print(axes.x_axis.numbers)
         
+        Text1 = TextMobject("贫穷和疾苦", color = BLUE).move_to(2.5*DOWN+4*LEFT)
+        Text2 = TextMobject("富有和健康", color = RED).move_to(2.5*UP+4*RIGHT)
+        self.play(Write(Text1),run_time = 2)
+        self.wait(3)
+        self.play(Write(Text2),run_time = 2)
+        self.wait(3)
+
+        self.play(FadeOut(VGroup(Text1,Text2)))
+
         self.wait()
-        
+        Text3 = TextMobject("GDP单位为2011年物价水平")
+        Text3.shift(UP)
+        Text4 = TextMobject("1国际元约为2011年的3.6元人民币")
+        Text5 = TextMobject("1国际元约为2018年的4元人民币")
+        Text4.next_to(Text3,DOWN)
+        Text5.next_to(Text4,DOWN)
+
+        #6:55;20
+        self.play(Write(VGroup(Text3,Text4,Text5)),run_time = 3)
+        #6:58;20
+        self.wait(7)
+        #7:05;20
+        self.play(FadeOut(VGroup(Text3,Text4,Text5)))
         #bubble creation animation
         #create add all areas circles
 
@@ -93,7 +116,7 @@ class MoreComparison(Scene):
             area_rect.append(Rectangle(height = 0.2, width = 0.5,color = AREA_COLOR_MAP[i],fill_opacity = 1))
             
             if i == 0:
-                area_rect[i].next_to(year_lable,2*DOWN)
+                area_rect[i].next_to(year_lable,6*DOWN)
 
             else:
                 area_rect[i].next_to(area_rect[i-1],DOWN)
@@ -119,25 +142,235 @@ class MoreComparison(Scene):
             self.play(AnimationGroup(*areas[i].transform_animations,lag_ratio = 0.1))
 
         self.wait()
-        TIME_TOTOL = 90
 
-        transfer_time = 0.7*TIME_TOTOL/len(range(1801,2019,1))
-        wait_time = 0.3*TIME_TOTOL/len(range(1801,2019,1))
+        for i,contry in enumerate(areas[3].contry_list):
+            if contry.name == "United States":
+                US_index = i
+        for i,contry in enumerate(areas[1].contry_list):
+            if contry.name == "Iran":
+                IRAN_index = i
+            elif contry.name == "China":
+                CN_index = i
+            elif contry.name == "India":    
+                India_index = i
+            elif contry.name == "Japan":
+                JP_index = i
+                japan = contry
 
-        for new_year in range(1801,2019,1):
+        #Stage1: 1800 - 1938
+
+        TIME_TOTOL = 55 # 2.5years per sec
+
+        transfer_time = 0.7*TIME_TOTOL/len(range(1801,1938,1))
+        wait_time = 0.3*TIME_TOTOL/len(range(1801,1938,1))
+
+        for new_year in range(1801,1938,1):
             area_animation = []
             contry_name_anim = []
             for area in areas:
+
                 area_animation += area.update_area_contryname_by_year_animation(new_year)
                 area_animation += area.update_area_circles_by_year_animation(new_year)
                 # SEQUENCE matters
-                    
+            
+
             self.play(
                 *area_animation,
                 year_lable.set_value,new_year,
                 run_time = transfer_time
                 )
             self.wait(wait_time)
+
+        #stage2: pause at 1938
+
+        JP_lable = TextMobject("日本",color = RED).scale(0.1)
+        JP_lable.move_to(japan.shape.get_center())
+        JP_lable1 = TextMobject("日本",color = RED).scale(0.8)
+        JP_lable1.next_to(japan.shape,2*UP)
+
+        self.play(FadeIn(JP_lable),run_time = 0.5)
+        self.play(
+            AnimationGroup(
+                ReplacementTransform(
+                    JP_lable,
+                    JP_lable1
+                    ),
+                WiggleOutThenIn(
+                    japan.shape,
+                    scale_value = 1.5
+                    ),
+                run_time = 1.5
+                )
+            )
+        self.wait()
+        self.play(FadeOut(JP_lable1))
+
+        #Stage3: 1938 - 1948
+
+        TIME_TOTOL = 4 # 2.5years per sec
+
+        transfer_time = 0.7*TIME_TOTOL/len(range(1938,1949,1))
+        wait_time = 0.3*TIME_TOTOL/len(range(1938,1949,1))
+
+        for new_year in range(1938,1949,1):
+            area_animation = []
+            contry_name_anim = []
+            for area in areas:
+
+                area_animation += area.update_area_contryname_by_year_animation(new_year)
+                area_animation += area.update_area_circles_by_year_animation(new_year)
+                # SEQUENCE matters
+            
+
+            self.play(
+                *area_animation,
+                year_lable.set_value,new_year,
+                run_time = transfer_time
+                )
+            self.wait(wait_time)
+
+        #8:53;02
+        self.wait(8.08)
+        #9:01:11
+        #stage 4: pause at 1948
+
+
+        #HIGHTLIGHT US:
+        US_lable = TextMobject("美国",color = BLUE).scale(0.1)
+        US_lable.move_to(areas[3].contry_list[US_index].shape.get_center())
+        US_lable1 = TextMobject("美国",color = BLUE).scale(0.8)
+        US_lable1.next_to(areas[3].contry_list[US_index].shape,UP)
+
+        self.play(FadeIn(US_lable),run_time = 0.5)
+        self.play(
+            AnimationGroup(
+                ReplacementTransform(
+                    US_lable,
+                    US_lable1
+                    ),
+                WiggleOutThenIn(
+                    areas[3].contry_list[US_index].shape,
+                    scale_value = 1.5
+                    ),
+                run_time = 1.5
+                )
+            )
+        self.wait()
+
+        lables = []
+        lables1 = []
+        for i,index in enumerate([IRAN_index,CN_index,India_index]):
+            lables.append(TextMobject(online_translation(areas[1].contry_list[index].name),color = RED).scale(0.1))
+            lables[i].move_to(areas[1].contry_list[index].shape.get_center())
+            lables1.append(TextMobject(online_translation(areas[1].contry_list[index].name),color = RED).scale(0.8))
+            lables1[i].next_to(areas[1].contry_list[index].shape,DOWN)
+
+            self.play(FadeIn(lables[i]),run_time = 0.2)
+            self.play(
+                AnimationGroup(
+                    ReplacementTransform(lables[i],lables1[i]),
+                    WiggleOutThenIn(areas[1].contry_list[index].shape,scale_value = 1.5,run_time = 3),
+                    run_time = 2))
+            self.wait()
+        
+        #09:12;27
+        lables1.append(US_lable1)
+        lables = VGroup()
+        for lable in lables1:
+            lables.add(lable)
+        self.wait()
+        #09:13;27
+        self.play(FadeOut(lables))
+        self.wait()
+
+        #stage 5: 1949-2018
+
+        TIME_TOTOL = 30 # 2.5years per sec
+
+        transfer_time = 0.7*TIME_TOTOL/len(range(1949,2019,1))
+        wait_time = 0.3*TIME_TOTOL/len(range(1949,2019,1))
+
+        for new_year in range(1949,2019,1):
+            area_animation = []
+            contry_name_anim = []
+
+            for area in areas:
+
+                area_animation += area.update_area_contryname_by_year_animation(new_year)
+                area_animation += area.update_area_circles_by_year_animation(new_year)
+                # SEQUENCE matters
+
+
+            self.play(
+                *area_animation,
+                year_lable.set_value,new_year,
+                run_time = transfer_time
+                )
+            self.wait(wait_time)
+
+        #stage 6: pause at 2018:
+        #09:44;12
+        self.wait(5)
+        #09:49.12
+        #high light Qatar and NK and Luxembourg
+        for area in areas:
+            for contry in area.contry_list:
+                if contry.name == "North Korea":
+                    north_korea = contry
+                elif contry.name == "Luxembourg":
+                    luxembourg = contry
+                elif contry.name == "Qatar":
+                    qatar = contry
+                elif contry.name == "China":
+                    china = contry
+                elif contry.name == "Congo, Dem. Rep.":
+                    congo = contry
+
+        lables = []
+        lables1 = []
+        colors = [YELLOW,RED,GREEN,RED]
+        for i,contry in enumerate([luxembourg,qatar,congo,north_korea]):
+            lables.append(TextMobject(online_translation(contry.name),color = colors[i]).scale(0.1))
+            lables[i].move_to(contry.shape.get_center())
+            lables1.append(TextMobject(online_translation(contry.name),color = colors[i]).scale(0.8))
+            
+            if i == 1:
+                lables1[i].next_to(contry.shape,DOWN)
+            else:
+                lables1[i].next_to(contry.shape,UP)
+
+            self.play(FadeIn(lables[i]),run_time = 0.2)
+            self.play(
+                AnimationGroup(
+                    ReplacementTransform(lables[i],lables1[i]),
+                    WiggleOutThenIn(contry.shape,scale_value = 1.5,run_time = 2),
+                    run_time = 2))
+            self.wait(0.5)
+                
+        lables = VGroup()
+        for lable in lables1:
+            lables.add(lable)
+        self.play(FadeOut(lables))
+        #10:00;27
+        self.wait(5)
+
+
+        #HIGHLIGHT China
+        lables = TextMobject("中国", color = RED).scale(0.1)
+        lables1 = TextMobject("中国", color = RED).scale(0.8)
+        lables.move_to(china.shape.get_center())
+        lables1.next_to(china.shape,UP)
+
+        self.play(FadeIn(lables),run_time = 0.2)
+        self.play(
+            AnimationGroup(
+                ReplacementTransform(lables,lables1),
+                WiggleOutThenIn(china.shape,scale_value = 1.5,run_time = 2),
+                run_time = 2))
+        #10:07;11
+        self.wait(8.16)
+        #10:15;27
+        #self.play(FadeOut(lables1))
 
 
         '''
