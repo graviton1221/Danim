@@ -47,7 +47,7 @@ class AllContryComparison(Scene):
         for number in range(1,10):
             axes.y_axis.add_numbers(number)        
         
-        self.play(ShowCreation(axes),run_time = 1.5)
+        self.play(ShowCreation(axes),run_time = 5)
 
 
         y_axis_label_text = TextMobject("生育率").scale(0.6)
@@ -60,7 +60,7 @@ class AllContryComparison(Scene):
         #create year lable:
         year_lable = Integer(1800,group_with_commas = False,color = TEAL_E).scale(1.5)
         year_lable.to_edge(UR)
-        self.play(GrowFromCenter(year_lable),run_time =0.6)
+        self.play(GrowFromCenter(year_lable),run_time =3)
         
         #create add all areas circles
         area_rect = []
@@ -95,12 +95,12 @@ class AllContryComparison(Scene):
 
         
         #update the contry circles from 1800 - 1911
-        TIME_TOTOL = 30
+        TIME_TOTOL = 30 # 3.76 years per sec
 
-        transfer_time = 0.7*TIME_TOTOL/len(range(1801,1911,1))
-        wait_time = 0.3*TIME_TOTOL/len(range(1801,1911,1))
+        transfer_time = 0.7*TIME_TOTOL/len(range(1801,1913,1))
+        wait_time = 0.3*TIME_TOTOL/len(range(1801,1913,1))
 
-        for new_year in range(1801,1911,1):
+        for new_year in range(1801,1913,1):
             area_animation = []
             contry_name_anim = []
             for area in areas:
@@ -119,12 +119,12 @@ class AllContryComparison(Scene):
         #update the contry circles from 1911 - 1923 :WW1
         self.wait()
 
-        TIME_TOTOL = 30
+        TIME_TOTOL = 20 # 1.88 years per sec
 
-        transfer_time = 0.7*TIME_TOTOL/len(range(1911,1923,1))
-        wait_time = 0.3*TIME_TOTOL/len(range(1911,1923,1))
+        transfer_time = 0.7*TIME_TOTOL/len(range(1913,1921,1))
+        wait_time = 0.3*TIME_TOTOL/len(range(1913,1921,1))
 
-        for new_year in range(1911,1923,1):
+        for new_year in range(1913,1921,1):
             area_animation = []
             contry_name_anim = []
             for area in areas:
@@ -139,15 +139,16 @@ class AllContryComparison(Scene):
                 )
             self.wait(wait_time)
 
+        #5:01;16
         self.wait()
-
+        #5:02;16
         #update the contry circles from 1920 - 1950 :WW2
-        TIME_TOTOL = 30
+        TIME_TOTOL = 20 # 1.88 years per sec
 
-        transfer_time = 0.7*TIME_TOTOL/len(range(1923,1950,1))
-        wait_time = 0.3*TIME_TOTOL/len(range(1923,1950,1))
+        transfer_time = 0.7*TIME_TOTOL/len(range(1921,1951,1))
+        wait_time = 0.3*TIME_TOTOL/len(range(1921,1951,1))
 
-        for new_year in range(1923,1950,1):
+        for new_year in range(1921,1951,1):
             area_animation = []
             contry_name_anim = []
             for area in areas:
@@ -161,12 +162,104 @@ class AllContryComparison(Scene):
                 run_time = transfer_time
                 )
             self.wait(wait_time)
+        #5:22;16
+
+        #pause at 1950
+        self.wait(9)
+        #5:29;16
+
+        developping = VGroup()
+        developped = VGroup()
+        names_to_show = [
+            "Yemen",#UP
+            "Afghanistan",#UP
+            "Saudi Arabia",#2*UP
+            "China",#DOWN
+            "India",#2*DOWN
+            "United States",#1.5*UP
+            "Switzerland"#1.5*DOWN
+            ]
+        next_to_mat = [1, 1, 2, -1, -2, 1.5, -1.5]
+        dict_to_show = {}
+        run_time_mat =[2, 1.5, 6, 3, 3, 2.5, 5]
+        color_mat = [RED,RED,RED,RED,RED,BLUE,YELLOW]
+
+        for area in areas:
+            for i,contry in enumerate(area.contry_list):
+                position = contry.get_both_fertandlife_point(1950)
+                
+                # if x is life_expectancy, y is fertality,
+                # then I define that line: 0.124285714285714 * x - 2.48571428571429
+                # this line passes two points [20,0] and [90,8.7]
+                # then I define if a country is at left-up part of the line, 
+                # its developpping country
+                # else is developped
+                if 0.124285714285714 * position[0] - 2.48571428571429 > position[1]:
+                    developping.add(contry.shape)
+                else:
+                    developped.add(contry.shape)
+
+                if contry.name in names_to_show:
+                    dict_to_show[contry.name] = contry
+
+        #show developping countries and developped countries
+        #5:29;16
+        self.play(
+            ApplyWave(
+                developping,
+                amplitude = 0.5,
+                run_time = 2,
+                rate_func =there_and_back
+                )
+            )
+        #5:31;16
+        self.wait()
+        #5:33;16
+        self.play(
+            ApplyWave(
+                developped,
+                amplitude = 0.5,
+                run_time = 2,
+                rate_func =there_and_back
+                )
+            )
+        #5:35;16
 
         self.wait()
+        #high light some cuntries:
+        lables = []
+        lables1 = []
+        for i,name in enumerate(names_to_show):
+            lables.append(TextMobject(online_translation(name),color = color_mat[i]).scale(0.1))
+            lables[i].move_to(dict_to_show[name].shape.get_center())
+            lables1.append(TextMobject(online_translation(name),color = color_mat[i]).scale(0.7))
+            lables1[i].next_to(dict_to_show[name].shape,next_to_mat[i]*UP)
+
+            fadein_time = 0.1*run_time_mat[i]
+            transform_time = 0.5*run_time_mat[i]
+            wait_times = 0.4*run_time_mat[i]
+
+            self.play(FadeIn(lables[i]),run_time = fadein_time)
+            self.play(
+                AnimationGroup(
+                    WiggleOutThenIn(
+                        dict_to_show[name].shape,
+                        scale_value = 1.5
+                        ),
+                    ReplacementTransform(lables[i],lables1[i]),
+                    run_time = transform_time
+                    )
+                )
+            self.wait(wait_times)
+
+        lables = VGroup()
+        for lable in lables1:
+            lables.add(lable)
+        self.play(FadeOut(lables))
 
         #update the contry circles from 1950 - 2018:
 
-        TIME_TOTOL = 30
+        TIME_TOTOL = 22
 
         transfer_time = 0.7*TIME_TOTOL/len(range(1951,2019,1))
         wait_time = 0.3*TIME_TOTOL/len(range(1951,2019,1))
@@ -185,8 +278,12 @@ class AllContryComparison(Scene):
                 run_time = transfer_time
                 )
             self.wait(wait_time)
+        #06:22:05
 
-        self.wait()
+        self.wait(11)
+
+        #06:33;05
+        
 
 
 
@@ -196,4 +293,4 @@ class AllContryComparison(Scene):
                 animations.append(FadeOut(mob))
 
         self.play(*animations)
-        
+        self.wait() 
