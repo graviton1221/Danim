@@ -33,7 +33,7 @@ class LogoAndOpenning(Scene):
         self.play(FadeIn(pic))
 
         if mode == "chinese":
-            intro1 = TextMobject("此视频纪念汉斯·罗斯林先生").scale(0.8)
+            intro1 = TextMobject("谨以此视频纪念汉斯·罗斯林先生").scale(0.8)
             intro1.shift(1.5*DOWN)
 
             intro2 = TextMobject("(1948 - 2017)").scale(0.6)
@@ -49,7 +49,8 @@ class LogoAndOpenning(Scene):
             intro2.shift(2*DOWN)
 
         self.play(Write(VGroup(intro1,intro2)))
-        self.wait(10)
+        self.wait(6.16)
+        #8.16s
         self.play(
         	AnimationGroup(
         		FadeOut(VGroup(intro1,intro2)),
@@ -79,24 +80,25 @@ class LogoAndOpenning(Scene):
             ],
             run_time = 2
             )
+        #12.16s
         self.wait(1)
-
+        #13.16
         self.play(*[
             Write(developing_country_lable),
             Write(developed_country_lable)
             ],
             run_time = 2
             )
-
-        self.wait(2)
-        
+        #15.16
+        self.wait()
+        #16.16
 
         #population question mark
         population = ImageMobject(population_pic_dir).scale(0.6)
         if mode == "chinese":
-            population_lable = TextMobject("人口数量").scale(0.6)
+            population_lable = TextMobject("人均寿命").scale(0.6)
         elif mode == "english":
-            population_lable = TextMobject("Population").scale(0.6)
+            population_lable = TextMobject("Life Expectancy").scale(0.6)
         question_mark1 = TexMobject("?").scale(0.6)
 
         population_lable.next_to(population,DOWN)
@@ -112,7 +114,8 @@ class LogoAndOpenning(Scene):
             Write(population_lable)
             ],
             run_time = 3)
-        self.wait(2)
+        self.wait()
+        #20.16
 
         #money question mark
         money = ImageMobject(money_pic_dir).scale(0.6)
@@ -135,8 +138,9 @@ class LogoAndOpenning(Scene):
             Write(question_mark2),
             Write(money_lable)
             ],
-            run_time = 3)
-        self.wait(2)
+            run_time = 2)
+        self.wait()
+        #23.16
 
         self.play(*[
             FadeOut(VGroup(
@@ -190,7 +194,7 @@ class LogoAndOpenning(Scene):
 
         developing_lable1 = TextMobject("人均寿命较短",color = RED).scale(0.7)
         developing_lable1.next_to(developing_kids,DOWN)
-        developing_lable2 = TextMobject("每户家庭孩子数量偏多",color = RED).scale(0.7)
+        developing_lable2 = TextMobject("每户孩子数多",color = RED).scale(0.7)
         developing_lable2.next_to(developing_lable1,DOWN)        
         
         self.play(*animations)
@@ -240,7 +244,7 @@ class LogoAndOpenning(Scene):
         
         developed_lable1 = TextMobject("人均寿命较长",color = BLUE).scale(0.7)
         developed_lable1.next_to(developed_kids,DOWN)
-        developed_lable2 = TextMobject("每户家庭孩子数量偏少",color = BLUE).scale(0.7)
+        developed_lable2 = TextMobject("每户孩子数少",color = BLUE).scale(0.7)
         developed_lable2.next_to(developed_lable1,DOWN)
 
         self.play(*animations)
