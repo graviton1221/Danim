@@ -1,5 +1,5 @@
 from Danim.Contry import *
-
+'''
 Contry_Group = [
     "Afghanistan","Australia",
     "Canada","Chile","Cuba"
@@ -7,7 +7,7 @@ Contry_Group = [
     "Iran","Italy","Japan","Libya","New Zealand","North Korea","Pakistan","Russia","Saudi Arabia","South Korea",
     "Spain","Sweden","Switzerland","Turkey","Uganda","United Kingdom","Vietnam","Zambia"
     ]
-
+'''
 
 
 #坐标轴设置axes settings
@@ -24,6 +24,7 @@ NEWORIGIN = [-FRAME_X_RADIUS*proportion_to_left,-FRAME_Y_RADIUS*proportion_to_bo
 
 #文件位置:
 CN_pic_dir = "Danim\\video1\\file\\china.svg"
+CN_south_china_sea_dir = "Danim\\video1\\file\\china_map_BU.svg"
 USA_pic_dir = "Danim\\video1\\file\\usa.svg"
 
 mode = "chinese"
@@ -40,8 +41,21 @@ class BubbleChartExpain(Scene):
         self.wait(1)
         
         #introducing china:
-        chinamap = SVGMobject(file_name = CN_pic_dir,fill_opacity = 0.7, fill_color = RED ).scale(2.5)
-        chinamap.shift(0.5*DOWN)
+        chinamap = VGroup() 
+        chinamap.add(SVGMobject(file_name = CN_pic_dir,fill_opacity = 0.7, fill_color = RED,unpack_groups = True ).scale(2.5))
+        CN_south_china_sea = VGroup()
+        CN_south_china_sea.add(SVGMobject(file_name = CN_south_china_sea_dir,fill_opacity = 0.7, fill_color = RED ).scale(2.5))
+        height = CN_south_china_sea.get_height() + 0.1
+        width = CN_south_china_sea.get_width() + 0.1
+        SCS_rect = Rectangle(height= height,width = width,color = RED) #CN_south_china_sea.next_to(chinamap,RIGHT+DOWN)
+        CN_south_china_sea.add(SCS_rect)
+        CN_south_china_sea.scale(0.2)
+        CN_south_china_sea.next_to(chinamap,LEFT+DOWN)
+        CN_south_china_sea.shift(1*UP+2.5*RIGHT)
+        CN_south_china_sea.stretch(0.8,dim = 0)
+        chinamap.add(CN_south_china_sea)
+        
+        #chinamap.shift(0.5*DOWN)
 
         #show china map
         if mode == "chinese":
@@ -61,9 +75,9 @@ class BubbleChartExpain(Scene):
                 Write(CN_name)),
                 run_time = 2
                 )
-
+        
         self.wait(2)
-
+        
         #introduce population
         if mode == "chinese":
             intro1 = TextMobject("总人口数:").scale(0.7)
@@ -85,14 +99,14 @@ class BubbleChartExpain(Scene):
 
         #introduce fertality rate
         if mode == "chinese":
-            intro4 = TextMobject("每户家庭平均拥有").scale(0.7)
+            intro4 = TextMobject("每户孩子数:").scale(0.7)
             intro5 = DecimalNumber(1.6,color = RED,num_decimal_places=1).scale(0.7)
-            intro6 = TextMobject("个孩子").scale(0.7)
+            intro6 = TextMobject("个").scale(0.7)
 
         else:
-            intro4 = TextMobject("There are").scale(0.7)
+            intro4 = TextMobject("Children per family:").scale(0.7)
             intro5 = DecimalNumber(1.6, color = RED,num_decimal_places=1).scale(0.7)
-            intro6 = TextMobject("children per family").scale(0.7)
+            #intro6 = TextMobject("children per family").scale(0.7)
 
         intro4.shift(2.8*UP + 0.7*LEFT)
         intro5.next_to(intro4,RIGHT)
@@ -104,7 +118,7 @@ class BubbleChartExpain(Scene):
 
         #introduce life expectancy
         if mode == "chinese":
-            intro7 = TextMobject("人均寿命").scale(0.7)
+            intro7 = TextMobject("人均寿命:").scale(0.7)
             intro8 = DecimalNumber(76.9,color = RED,num_decimal_places=1).scale(0.7)
             intro9 = TextMobject("岁").scale(0.7)
 
@@ -174,9 +188,9 @@ class BubbleChartExpain(Scene):
 
         #introduce fertality rate
         if mode == "chinese":
-            intro13 = TextMobject("每户家庭平均拥有").scale(0.7)
+            intro13 = TextMobject("每户孩子数:").scale(0.7)
             intro14 = DecimalNumber(1.9,color = BLUE,num_decimal_places=1).scale(0.7)
-            intro15 = TextMobject("个孩子").scale(0.7)
+            intro15 = TextMobject("个").scale(0.7)
 
         else:
             intro13 = TextMobject("There are").scale(0.7)
@@ -193,7 +207,7 @@ class BubbleChartExpain(Scene):
 
         #introduce life expectancy
         if mode == "chinese":
-            intro16 = TextMobject("人均寿命").scale(0.7)
+            intro16 = TextMobject("人均寿命:").scale(0.7)
             intro17 = DecimalNumber(79.1,color = BLUE,num_decimal_places=1).scale(0.7)
             intro18 = TextMobject("岁").scale(0.7)
 
@@ -240,7 +254,7 @@ class BubbleChartExpain(Scene):
         original_radius_cn = get_norm(china.shape.get_center()-china.shape.points[0])
         original_radius_usa = get_norm(usa.shape.get_center()-usa.shape.points[0])
         if mode == "chinese":
-            update_value_cn = 13.95
+            update_value_cn = 13.90
             update_value_usa = 3.27
         else:
             update_value_cn = 1.39
@@ -399,6 +413,7 @@ class BubbleChartExpain(Scene):
 
         self.wait(2)
 
+
         #TODO-----: redundant
         china.contry_name = TextMobject("1")
         usa.contry_name = TextMobject("2")
@@ -407,7 +422,42 @@ class BubbleChartExpain(Scene):
 
         self.play(FadeOut(VGroup(life_expect_intro_usa,fert_rate_intro_usa,pop_intro_usa,life_expect_intro,fert_rate_intro,pop_intro)))
         
-        for new_year in [2015,2013,2010,2005,2000,1990,1980,1970,1950,1930,1910,1900,1850,1840,1830,1820,1810,1800]:
+        #area demo
+        self.wait(0.5)
+        text1 = TextMobject("寿命长", color =  RED)
+        text2 = TextMobject("小家庭", color =  RED)
+        text2.next_to(china.shape,UP)
+        text1.next_to(text2,UP)
+
+        self.play(Write(VGroup(text1,text2)),run_time = 2)
+        self.wait(6)
+
+        text3 = TextMobject("寿命短", color =  BLUE)
+        text4 = TextMobject("大家庭", color =  BLUE)
+        text3.next_to(y_axis_label_text,DOWN)
+        text3.shift(0.3*RIGHT)
+        text4.next_to(text3,DOWN)       
+
+        self.play(Write(VGroup(text3,text4)),run_time = 2)
+        self.wait(3)
+        self.play(FadeOut(VGroup(text1,text2,text3,text4)),run_time = 1)
+
+        shift_vect_cn = china.get_transfromed_fertandlife_point(1800) - china.shape.get_center()
+        shift_vect_usa = usa.get_transfromed_fertandlife_point(1800) - usa.shape.get_center()
+        self.play(                
+            china.update_circlelable_by_year_animation(1800),
+            usa.update_circlelable_by_year_animation(1800),
+            china.update_circle_by_year_animation(1800,show_track=False),
+            usa.update_circle_by_year_animation(1800,show_track=False),                
+            ApplyMethod(VGroup(china.data_coordinate_lable,dot_cn).shift,shift_vect_cn),
+            ApplyMethod(VGroup(usa.data_coordinate_lable,dot_usa).shift,shift_vect_usa),
+            year_lable.set_value,1800,
+            run_time = 3
+            )
+        self.wait(9)
+
+
+        for new_year in [1825,1850,1875,1900,1920,1940,1950,1960,1970,1975,1980,2008,2015,2018]:
             shift_vect_cn = china.get_transfromed_fertandlife_point(new_year) - china.shape.get_center()
             shift_vect_usa = usa.get_transfromed_fertandlife_point(new_year) - usa.shape.get_center()
             self.play(                
@@ -423,183 +473,14 @@ class BubbleChartExpain(Scene):
             #print(china.data_x_lable.get_value(),usa.data_x_lable.get_value())
             self.wait(1)        
 
-        # FadeOut all the lables:
-        self.play(
-            FadeOut(
-                VGroup(
-                    usa.data_coordinate_lable,
-                    china.data_coordinate_lable,
-                    vline_cn,
-                    hline_cn,
-                    dot_usa,
-                    dot_cn,
-                    vline_usa,
-                    hline_usa,
-                    usa.data_x_lable,
-                    usa.data_y_lable,
-                    china.data_x_lable,
-                    china.data_y_lable,
-                    )
-                )
-            )
-
-        #add Area color lable:
-        area_rect = []
-        area_rect_lable = []
-        #areas = []
-        for i,area in enumerate(THE_WHOLE_WORLD):
-
-            #areas.append(Area(area))
-            area_rect.append(Rectangle(height = 0.2, width = 0.5,color = AREA_COLOR_MAP[i],fill_opacity = 1))
-            
-            if i == 0:
-                area_rect[i].next_to(year_lable,2*DOWN)
-
-            else:
-                area_rect[i].next_to(area_rect[i-1],DOWN)
-            area_rect_lable.append(TextMobject(CH_THE_WHOLE_WORLD[i]).scale(0.4))
-            area_rect_lable[i].next_to(area_rect[i],LEFT)
-
-            self.play(
-                #*areas[i].get_creation_animation(),
-                GrowFromCenter(area_rect[i]),
-                Write(area_rect_lable[i])
-                )
-        
-
-
-        #read the csvfile(,which contains the area name and contry name) and store them in memory
-        contry_dic = {}
-        contry_group = VGroup()
-        contry_group_colors = []
-
-        area_file_path = os.path.join(DATADIR, contry_and_area_file)
-        csvfiles = csv.reader(open(area_file_path,'r'))
-        
-
-        for row in csvfiles:
-                
-            if row[0] in Contry_Group:
-                contry_group_colors.append(AREA_COLOR_MAP_DIC[row[1]])
-        
-        #add more contry to compare
-        grow_time = 1
-        transfer_run_time = 1
-        fadeout_time = 1
-
-        grow_animations = []
-        transform_animations = []
-        y0 = axes.x_axis.number_to_point(80)[1]
-        #print(y0)
-        #print("start")
-        for i,contry_name in enumerate(Contry_Group):
-
-            if i == 0:
-                previous_country = contry_name
-                cornor_country = contry_name
-
-            #create the contry and circle:
-            contry_dic[contry_name] = Contry(contry_name,show_CN_name = True)
-            contry_dic[contry_name].fill_data_and_set_the_circle(
-                1800,
-                contry_group_colors[i],
-                switch_on = True, 
-                show_CN_pop_lable = True
-                )
-
-            contry_dic[contry_name].contry_name.scale(0.5)
-            contry_dic[contry_name].contry_name.next_to(contry_dic[contry_name].shape,RIGHT)
-            contryG = VGroup(
-                        contry_dic[contry_name].shape,
-                        contry_dic[contry_name].contry_name
-                        )
-            
-
-            height = contryG.get_critical_point(UP)[1] - contryG.get_critical_point(DOWN)[1]
-            cell = contry_dic[previous_country].shape.get_critical_point(DOWN)[1]
-
-            if i == 0:
-                contryG.shift(3*RIGHT + 3*UP)
-            elif cell - height < y0 + 0.5:
-
-                contryG.next_to(contry_dic[cornor_country].shape,LEFT)
-                contryG.shift(0.1*LEFT)
-                cornor_country = contry_name
-
-            else:
-                contryG.next_to(
-                    VGroup(
-                        contry_dic[previous_country].shape,
-                        contry_dic[previous_country].contry_name
-                        ),
-                    DOWN
-                    )
-
-            grow_animations.append(GrowFromCenter(contryG,run_time = grow_time))
-
-            transform_animations.append(
-                AnimationGroup(
-                    ApplyMethod(
-                        contry_dic[contry_name].shape.move_to,
-                        contry_dic[contry_name].get_transfromed_fertandlife_point(1800),
-                        run_time = transfer_run_time),
-                    FadeOut(contry_dic[contry_name].contry_name,run_time = fadeout_time),
-                    lag_ratio = 1
-                    )
-                )
-
-            previous_country = contry_name
-
-        
-        self.play(AnimationGroup(*grow_animations,lag_ratio = 0.1))
-        self.wait()
-        self.play(AnimationGroup(*transform_animations,lag_ratio = 0.1))
-        
-        self.wait()
-
-        #udate the contries circles from 1800 to 2018
-        transfer_run_time = 1.5
-        wait_time = 0.5
-        for new_year in [1825,1850,1875,1900,1925,1950,1975,2000,2005,2008,2010,2015,2016,2017,2018]:
-            animations = []
-            for name in contry_dic.keys():
-                animations.append(contry_dic[name].update_circle_by_year_animation(new_year))
-
-            animations.append(china.update_circle_by_year_animation(new_year))
-            animations.append(usa.update_circle_by_year_animation(new_year))
-
-            self.play(
-                *animations,
-                year_lable.set_value,new_year,
-                run_time = transfer_run_time)
-            self.wait(wait_time)
-
-        self.wait()
-        
-        #Fade out all circles
-        animations = []
-        for name in contry_dic.keys():
-            animations.append(FadeOut(contry_dic[name].shape))
-        animations.append(FadeOut(VGroup(china.shape,usa.shape)))
-
-        for i,rect in enumerate(area_rect):
-            animations.append(FadeOut(VGroup(rect,area_rect_lable[i])))
-
-        animations.append(FadeOut(VGroup(year_lable,axes,y_axis_label_text,x_axis_label_text)))
-
-        self.play(
-            *animations,
-            run_time = 2)
-        
-        self.wait()
-
+        #3:11;16
+        self.wait(2)
+        #3:13;16
         animations = []
         for mob in self.mobjects:
             if isinstance(mob,Mobject) & (not hasattr(mob,"asdfi")):
                 animations.append(FadeOut(mob))
 
         self.play(*animations)
-        
 
-        
-
+        self.wait()
