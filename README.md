@@ -19,8 +19,11 @@ this gif may load for a while...
 
 ### 2.Distribution chart animation:
 You can have multiple choices:
+
 Show the distribution
+
 See how it changes through time
+
 Stack different distributions together
 
 the effects is as follows： 
