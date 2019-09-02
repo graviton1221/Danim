@@ -8,7 +8,7 @@ from manimlib.constants import *
 #-----------data settings 输入数据设置------------#
 #************************************************#
 
-DATA_DIR =  "manim\\Danim\\DATA"
+DATA_DIR =  "Danim\\DATA"
 file_name_list = ["X.csv","Y.csv","R.csv"]
 X_file_name = "X.csv"
 Y_file_name = "Y.csv"
