@@ -14,7 +14,7 @@ class BubbleChartAnimation(Scene):
         #data import:
         X,Y,R,entity_names,T = data_digest()
         #create bubble_chart object
-        bubble_chart = BubbleChart(X,Y,R,entity_names,T,axis_color = RED, set_bubble_colors = "by_group")
+        bubble_chart = BubbleChart(X,Y,R,entity_names,T,axis_color = RED)#, set_bubble_colors = "by_group")
 
         #make Creation animation
         self.play(bubble_chart.Get_Creation_Animation())
