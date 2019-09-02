@@ -1,5 +1,5 @@
 #mainm tools
-from big_ol_pile_of_manim_imports import *
+from manimlib.imports import *
 #added functions
 from Danim.BubbleChart.BCutils import *
 from Danim.BubbleChart.bubble_constants import *
