@@ -106,7 +106,13 @@ FILL_OPACITY = 0.7
 
 #color generation group lables:
 GROUP_LABLE_CSV_FILE =  "Danim\\DATA\\Group_lable.csv"
-COLOR_LABLE_DICT = {"中国":RED,"美国":BLUE}
+COLOR_LABLE_DICT = {
+	"AFRICA":RED,
+	"ASIA":GREEN,
+	"EUROPE":BLUE,
+	"LATIN AMERICA AND THE CARIBBEAN":YELLOW,
+	"OCEANIA":PURPLE_E
+	}
 '''
 {"华北":YELLOW,"华南":ORANGE,"东北":WHITE,"华东":BLUE,"西南":RED,"华中":GREEN,"西北":TEAL_E}
 '''
