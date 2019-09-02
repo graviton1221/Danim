@@ -153,7 +153,7 @@ COLOR_LABLE_DICT = {
 	"OCEANIA":PURPLE_E
 	}
 '''
-GROUP_NAME = "industry"#group by which column name in file Group_lable.csv
+GROUP_NAME = "Area_name"#group by which column name in file Group_lable.csv
 
 
 
