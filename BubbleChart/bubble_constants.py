@@ -98,7 +98,7 @@ TIME_LABLE_POSITION = 6.0*RIGHT + 3.5*UP
 # 默认设为2亿(人口)为1单位面积圆
 
 #100亿为单位圆
-R_per_circle_area = 100000000000 #1000000000
+R_per_circle_area = 1000000000 #1000000000
 
 #bubbles' opacity
 #圆透明度
