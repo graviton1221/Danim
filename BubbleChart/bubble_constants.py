@@ -8,7 +8,7 @@ from manimlib.constants import *
 #-----------data settings 输入数据设置------------#
 #************************************************#
 
-DATA_DIR =  "Danim\\DATA\\"
+DATA_DIR =  "Danim\\DATA"
 file_name_list = ["X.csv","Y.csv","R.csv"]
 X_file_name = "X.csv"
 Y_file_name = "Y.csv"
@@ -30,12 +30,12 @@ CUSTOM_AXES_RANGE = True
 # 手动调节坐标轴范围
 if CUSTOM_AXES_RANGE:
 	XMIN = 0
-	XMAX = 100
+	XMAX = 110
 	YMIN = 0
-	YMAX = 10
+	YMAX = 11
 
 SHOW_AXIS_LABLES = True
-X_AXIS_LABLE = "人均寿命"#
+X_AXIS_LABLE = "人均寿命"
 Y_AXIS_LABLE = "生育率"
 TEXT_COLOR = LIGHT_GREY
 TEXT_SCALE_FACTOR = 0.8
@@ -98,14 +98,14 @@ TIME_LABLE_POSITION = 6.0*RIGHT + 3.5*UP
 # 默认设为2亿(人口)为1单位面积圆
 
 #100亿为单位圆
-R_per_circle_area = 1000000000 #1000000000
+R_per_circle_area =10000000000 #1000000000
 
 #bubbles' opacity
 #圆透明度
 FILL_OPACITY = 0.7
 
 #color generation group lables:
-GROUP_LABLE_CSV_FILE =  "Danim\\DATA\\Group_lable.csv"
+GROUP_LABLE_CSV_FILE = "Danim\\DATA\\Group_lable.csv"
 COLOR_LABLE_DICT = {
 	"AFRICA":RED,
 	"ASIA":GREEN,
@@ -165,13 +165,18 @@ SOME_CONTRIES = []#["China","India","United States","United Kingdom","Russia"]
 
 
 #color_lables
-SHOWN_ENTITY_NAMES = COLOR_LABLE_DICT.keys()#default THE_WHOLE_WORLD
+SHOWN_ENTITY_NAMES = COLOR_LABLE_DICT.keys() #default THE_WHOLE_WORLD
 RECT_HIGHT = 0.2
 RECT_WIDTH = 0.5
 RECT_POSITION = 5.0*RIGHT + 3.0*UP
 RECT_TEXT_SCALE_FACTOR = 0.4
 SHOW_CN_NAMES = False # when True, the program only works if the Internet is connected
 RECT_INTERVAL_FACTOR = 2 # default interval is (2-1) * the rectangle heights, must be greater than 1
+NAME_TEXT_SCALE_FACTOR = 0.3
+SINGLE_GROW_RUN_TIME = 0.8
+SINGLE_TRANSFER_TIME = 0.8
+NUM_OF_MAXIMUM_CIRCLES_IN_A_FRAME = 60 #used in get_creation for bubble chart
+LAG_RATIO_FOR_CREATION = 0.3
 #************************************************#
 
 
@@ -200,5 +205,8 @@ DISPLAY_SPECIFIC_ENTITIES = False
 
 SOME_ENTITIES_TO_SHOW = SOME_CONTRIES #if DISPLAY_SPECIFIC_ENTITIES is True
 
+COLOR_LABLE_INDEX_DICT = {}
+for i,entity in enumerate(SHOWN_ENTITY_NAMES):
+	COLOR_LABLE_INDEX_DICT[entity] = i
 
 #************************************************#
