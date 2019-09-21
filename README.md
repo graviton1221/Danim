@@ -60,6 +60,7 @@ detailed code is in line 142 of BubbleChartAnimation.py
 
 <img src="image/hight_light_demo.gif" width="500px" height="281px">
 
+You can achieve this function by unannotate the code in Line 142-155 in BubbleChartAnimation.py
 
 ### 2.Distribution chart animation:
 You can have multiple choices:
