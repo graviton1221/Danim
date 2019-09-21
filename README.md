@@ -24,12 +24,15 @@ In bubble chart animation, you can have personalized settings:
 there are three options in creation: 
 
 directly showing everything(option 1)
+
 <img src="image/option1_demo.gif" width="500px" height="281px">
 
 Show each bubble, but its color is given randomly(option 2)
+
 <img src="image/option2_demo.gif" width="500px" height="281px">
 
 Show each bubble by its color group(option 3)
+
 <img src="image/option3_demo.gif" width="500px" height="281px">
 
 (2) hight light option:
