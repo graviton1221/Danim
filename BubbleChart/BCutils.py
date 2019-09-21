@@ -54,9 +54,11 @@ def data_digest(
         
         time_lables = list((set(data[0].columns)&set(data[1].columns)&set(data[2].columns)))#&
         bubble_sort(time_lables)
+        bubble_sort(entity_index)
         
         for i in [0,1,2]:
             data[i] = pd.DataFrame(data[i], index = entity_index, columns = time_lables)
+
 
     return np.array(data[0]), np.array(data[1]), np.array(data[2]), entity_index, time_lables
 
@@ -210,56 +212,131 @@ def transform_from_data_to_screencoordinates(X,Y,R,axes):
 
     return coordinates,Rdata
 
-def set_up_the_bubbles(coordinates_at_a_time, Rdata_at_a_time, axes, color_mat):
+def set_up_the_bubbles(
+    coordinates_at_a_time, 
+    Rdata_at_a_time, 
+    axes, 
+    color_mat, 
+    mode = 'multiples'#  can be single or multiples
+    ):
 
     # the argument coordinates_at_a_time and Rdata_at_a_time is 
     # just one column in coordinates and Rdata
     # specifically coordinates_at_a_time = coordinates[:,0]
     # Rdata_at_a_time = Rdata[:,0]
 
-    #dimension check
-    assert(coordinates_at_a_time.shape[0] == Rdata_at_a_time.shape[0] and len(color_mat))
-    assert(len(coordinates_at_a_time.shape) == 2)
-    assert(isinstance(color_mat,list))
+    if mode == "multiples":
+        #dimension check
+
+        
+        assert(coordinates_at_a_time.shape[0] == Rdata_at_a_time.shape[0])# and len(color_mat))
+        assert(len(coordinates_at_a_time.shape) == 2)
+        assert(isinstance(color_mat,list))
     
 
-    bubbles = VGroup()
-    for i,bubbledata in enumerate(zip(coordinates_at_a_time,Rdata_at_a_time)):
-        bubbles.add(
-            Circle(
-                radius = bubbledata[1], 
-                color = color_mat[i], 
-                fill_opacity = FILL_OPACITY).shift(bubbledata[0])
-            )
+        bubbles = VGroup()
+        for i,bubbledata in enumerate(zip(coordinates_at_a_time,Rdata_at_a_time)):
+            bubbles.add(
+                Circle(
+                    radius = bubbledata[1], 
+                    color = color_mat[i], 
+                    fill_opacity = FILL_OPACITY).shift(bubbledata[0])
+                )
+    
+    if mode == 'single':
+
+        bubbles = Circle(
+            radius = Rdata_at_a_time,
+            color = color_mat, 
+            fill_opacity = FILL_OPACITY).shift(coordinates_at_a_time)
+
 
     return bubbles
 
 #-----------other useful tools 其他工具-----------#
 #************************************************#
 
+
 def online_translation(English_string):
-     # 对应上图的Request URL
-    request_url = "http://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule"
-    # 创建Form Data字典，存储上图中的Form Data
-    Form_Data = {}
-    Form_Data['i'] = English_string
-    Form_Data['from'] = 'AUTO'
-    Form_Data['to'] = 'AUTO'
-    Form_Data['smartresult'] = 'dict'
-    Form_Data['client'] = 'fanyideskweb'
-    Form_Data['doctype'] = 'json'
-    Form_Data['version'] = '2.1'
-    Form_Data['keyfrom'] = 'fanyi.web'
-    Form_Data['action'] = 'FY_BY_REALTIME'
-    Form_Data['typoResult'] = 'false'
-    # 使用urlencode方法转换标准格式
-    data = parse.urlencode(Form_Data).encode('utf-8')
-    # 传递Request对象和转换完格式的数据
-    response = request.urlopen(request_url, data)
-    # 读取信息并解码
-    html = response.read().decode('utf-8')
-    # 使用json
-    translate_results = json.loads(html)
-    # 找到翻译结果
-    translate_result = translate_results["translateResult"][0][0]['tgt']
+    if English_string == "Georgia":
+        translate_result =  "格鲁吉亚"
+    elif English_string == "Timor-Leste":
+        translate_result =  "东帝汶"
+    elif English_string == "Turkey":
+        translate_result =  "土耳其"
+    elif English_string == "Uganda":
+        translate_result =  "乌干达"
+    elif English_string == "United Kingdom":
+        translate_result =  "英国"
+    elif English_string == "Zambia":
+        translate_result =  "赞比亚"
+    elif English_string == "Congo, Dem. Rep.":
+        translate_result =  "刚果金"        
+    elif English_string == "Congo, Rep.":
+        translate_result =  "刚果布"
+    elif English_string == "Madagascar":
+        translate_result =  "马达加斯加"
+    elif English_string == "Sao Tome and Principe":
+        translate_result =  "圣多美和普林西比"
+    elif English_string == "Togo":
+        translate_result =  "多哥"
+    elif English_string == "Bosnia and Herzegovina":
+        translate_result =  "波黑"
+    elif English_string == "Holy See":
+        translate_result =  "梵蒂冈"    
+    elif English_string == "San Marino":
+        translate_result =  "圣马力诺"  
+    elif English_string == "Antigua and Barbuda":
+        translate_result =  "安提瓜和巴布达" 
+    elif English_string == "Bahamas":
+        translate_result =  "巴哈马" 
+    elif English_string == "Bolivia":
+        translate_result =  "玻利维亚" 
+    elif English_string == "Costa Rica":
+        translate_result =  "哥斯达黎加" 
+    elif English_string == "El Salvador":
+        translate_result =  "萨尔瓦多" 
+    elif English_string == "Trinidad and Tobago":
+        translate_result =  "特立尼达和多巴哥" 
+    elif English_string == "Macedonia, FYR":
+        translate_result =  "马其顿共和国" 
+    elif English_string == "Micronesia, Fed. Sts.":
+        translate_result =  "密克罗尼西亚联邦" 
+    elif English_string == "Palau":
+        translate_result =  "帕劳共和国" 
+    elif English_string == "Tonga":
+        translate_result =  "汤加" 
+    elif English_string == "Tuvalu":
+        translate_result =  "图瓦卢" 
+
+
+    else:
+        # 对应上图的Request URL
+        request_url = "https://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule"
+        # 创建Form Data字典，存储上图中的Form Data
+        Form_Data = {}
+        Form_Data['i'] = English_string
+        Form_Data['from'] = 'AUTO'
+        Form_Data['to'] = 'AUTO'
+        Form_Data['smartresult'] = 'dict'
+        Form_Data['client'] = 'fanyideskweb'
+        Form_Data['doctype'] = 'json'
+        Form_Data['version'] = '2.1'
+        Form_Data['keyfrom'] = 'fanyi.web'
+        Form_Data['action'] = 'FY_BY_REALTIME'
+        Form_Data['typoResult'] = 'false'
+        # 使用urlencode方法转换标准格式
+        data = parse.urlencode(Form_Data).encode('utf-8')
+        # 传递Request对象和转换完格式的数据
+        response = request.urlopen(request_url, data)
+        # 读取信息并解码
+        html = response.read().decode('utf-8')
+        # 使用json
+        #print(html)
+        translate_results = json.loads(html)
+
+        # 找到翻译结果
+        translate_result = translate_results["translateResult"][0][0]['tgt']
+    
+
     return translate_result
