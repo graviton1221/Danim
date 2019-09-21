@@ -35,6 +35,24 @@ Show each bubble by its color group(option 3)
 
 <img src="image/option3_demo.gif" width="500px" height="281px">
 
+
+Change the creation settings in BubbleChartAnimation.py: Line 4
+
+```sh
+class BubbleChartAnimation(Scene):
+    def construct(self):
+        self.AllContriesComparison()
+```
+to
+
+```sh
+class BubbleChartAnimation(Scene):
+    def construct(self):
+        self.AllContriesComparison(start_option = "3")
+```
+default is option 2
+
+
 (2) hight light option:
 if in the middle of progression, you want to stop and hightlight some bubbles,
 you can choose to use Get_Hightlight_Animation() method,
