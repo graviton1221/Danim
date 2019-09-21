@@ -17,6 +17,26 @@ this gif may load for a while...
 
 *DATA source: gapminder & UN
 
+In bubble chart animation, you can have personalized settings:
+
+(1) The Creation settings:
+
+there are three options in creation: 
+
+directly showing everything(option 1)
+
+Show each bubble, but its color is given randomly(option 2)
+
+Show each bubble by its color group(option 3)
+
+(2) hight light option:
+if in the middle of progress, you want to hightlight some bubbles,
+you can choose to use Get_Hightlight_Animation() method,
+detailed code is in line 142 of BubbleChartAnimation.py
+
+<img src="image/hight_light_demo.gif" width="500px" height="281px">
+
+
 ### 2.Distribution chart animation:
 You can have multiple choices:
 
