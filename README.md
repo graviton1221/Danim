@@ -23,7 +23,7 @@ In bubble chart animation, you can have personalized settings:
 
 there are three options in creation: 
 
-directly showing everything(option 1)
+directly show everything(option 1)
 
 <img src="image/option1_demo.gif" width="500px" height="281px">
 
